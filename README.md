@@ -13,6 +13,6 @@ Single App Web Page For Product List + Filters In Laravel Vue Js
 - (When installed via git clone or download, run `php artisan key:generate`)
 - `php artisan migrate`
 - `npm install`
-- (To fetch packtd prdocuts, run `php artisan product:fetch`)
+- (To fetch packtd prdocuts, run `php artisan product:fetch` - This command will take 15-20 minutes as we are fetching product from packtd api and store it in our database)
 - Run vue js `npm run dev`
 - Run laravel project `php artisan serve`
