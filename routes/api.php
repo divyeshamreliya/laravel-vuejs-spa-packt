@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['prefix' => 'product'], function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::get('/type', [ProductController::class, 'GetProductType']);
+    Route::post('/', [ProductController::class, 'index']);
     Route::get('/filters', [ProductController::class, 'GetProductFilters']);
 });

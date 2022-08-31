@@ -20,16 +20,16 @@ class ProductController extends Controller
         try{
             $products = new Product;
             if ($request->product_type) {
-                $products = $products->where("product_type",$request->product_type);
+                $products = $products->whereIn("product_type",$request->product_type);
             }
             if ($request->category) {
-                $products = $products->whereIn("category",explode(",",$request->category));
+                $products = $products->whereIn("category",$request->category);
             }
             if ($request->concept) {
-                $products = $products->whereIn("concept",explode(",",$request->concept));
+                $products = $products->whereIn("concept",$request->concept);
             }
             if ($request->published_year) {
-                $years = explode(",",$request->published_year);
+                $years = $request->published_year;
                 $products = $products->where(function($q) use($years) {
                     foreach ($years as $year) {
                         $q->whereYear('publication_date', '=', $year, 'or');
@@ -37,21 +37,10 @@ class ProductController extends Controller
                 });
             }
             if ($request->language) {
-                $products = $products->whereIn("language",explode(",",$request->language));
+                $products = $products->whereIn("language",$request->language);
             }
             $products = $products->get();
             $response = array('data' => $products,'responseMessage' => "Success");
-			return response()->json($response)->setStatusCode(200);
-        } catch (\Exception $e) {
-			$response = array('data' => null,'responseMessage' => $e->getMessage());
-			return response()->json($response)->setStatusCode(400);
-        }
-    }
-
-    public function GetProductType(Request $request) {
-        try{
-            $product_type = Product::select('product_type')->whereNotNull("product_type")->distinct()->get();
-            $response = array('data' => $product_type,'responseMessage' => "Success");
 			return response()->json($response)->setStatusCode(200);
         } catch (\Exception $e) {
 			$response = array('data' => null,'responseMessage' => $e->getMessage());
@@ -72,6 +61,9 @@ class ProductController extends Controller
 
             $filters['languages'] = Product::selectRaw('DISTINCT(language) as language, count(id) as total')
                 ->where('language',"!=",'0')->groupBy('language')->orderBy('total', 'desc')->get();
+
+            $filters['product_type'] = Product::selectRaw('DISTINCT(product_type) as product_type, count(id) as total')
+                ->whereNotNull("product_type")->groupBy('product_type')->orderBy('total', 'desc')->get();
 
             $response = array('data' => $filters,'responseMessage' => "Success");
 			return response()->json($response)->setStatusCode(200);

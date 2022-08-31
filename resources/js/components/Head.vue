@@ -5,7 +5,7 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarColor">
+          <!--<div class="collapse navbar-collapse" id="navbarColor">
               <ul class="navbar-nav">
                   <li class="nav-item">
                     <a class="nav-link active"  @click="getProducts('')">All</a>
@@ -14,7 +14,7 @@
                     <a class="nav-link"  id="product_type.product_type" @click="getProducts(product_type.product_type)">{{ product_type.product_type }}</a>
                   </li>
               </ul>
-          </div>
+          </div>-->
       </nav>
     </div>
 </template>
@@ -39,7 +39,7 @@ export default {
       }
   },
   created() {
-      this.getProductType()
+      //this.getProductType()
   }
 }
 </script>

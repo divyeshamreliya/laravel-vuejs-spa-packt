@@ -43,7 +43,15 @@ export default {
   },
   methods: {
       getProducts(product_type = "", category="", concept="", published_year= "", language = ""){
-          axios.get('/api/product?product_type='+product_type+'&category='+category+'&concept='+concept+'&published_year='+published_year+'&language='+language)
+          let data = {
+            "product_type": product_type,
+            "category": category,
+            "concept": concept,
+            "published_year": published_year,
+            "language": language,
+          }
+          //axios.post('/api/product?product_type='+product_type+'&category='+category+'&concept='+concept+'&published_year='+published_year+'&language='+language)
+          axios.post('/api/product',data)
                 .then((response)=>{
                   this.products = response.data.data
                   this.total_records = response.data.data.length
